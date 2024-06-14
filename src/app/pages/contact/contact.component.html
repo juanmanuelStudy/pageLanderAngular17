@@ -1,0 +1,46 @@
+<div class="container">
+  <!--CON EL SUMIT AQUI EN ESTA ETIQUETA LO QUE HACEMOS EN QUE NO ACTUALICE EN FORMULARIO QUE LLAMA AL EVENTO EN EL CONTROLADOR
+  sE ELIMINAR LOS REQUERID PARA QUE SE MANEJE DESDE EL CONTROLADOR LE PASAMOS LA DIRECTIVA formGroup CON EL NOBRE contactForm
+   QUE TIENE EN EL CONTROLADOR (creamos la variable conctactForm para poder utilizar el formulario reactiv)-->
+  <form [formGroup]="contactForm" class="row g-3 needs-validation" novalidate (submit)="enviar($event)">
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Email address</label>
+      <!-- AÑADIMOS la directiva  formControlName="email y formControlName="message" que son las variables que se han creado en el
+      controlador que recibe los datos del imput-->
+
+      <!--añadimos un ngClass para que escuche cuando es invalido y al directiva -->
+      <input type="email"
+             class="form-control"
+             id="exampleFormControlInput1"
+             placeholder="name@example.com"
+             formControlName="email"
+             [ngClass]="{'is-invalid ': hasErrors('email','requerid') || hasErrors('email','email')}"
+      >
+      @if(hasErrors('email','requerid')){
+      <span class="text-danger">No esta completo el campo</span>
+      }
+      @if(hasErrors('email','email')){
+      <span class="text-danger">El email no tiene el formato</span>
+      }
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">Message</label>
+      <textarea
+        class="form-control"
+        id="exampleFormControlTextarea1"
+        rows="3"
+        formControlName="message"
+      [ngClass]="{'is-invalid' : hasErrors('message','requirid')||hasErrors('message','minlength')}">
+      </textarea>
+      @if(hasErrors('message','requirid')){
+      <span class="text-danger">No esta completo el campo</span>
+      }
+      @if(hasErrors('message','minlength')){
+      <span class="text-danger">No tiene los 10 caracteres minimos</span>
+      }
+    </div>
+    <div class="col-12">
+      <button class="btn btn-primary" type="submit">Submit form</button>
+    </div>
+  </form>
+</div>
